@@ -1,0 +1,259 @@
+WordCraft 
+
+
+WordCraft 0.1.6 Changelog
+
+- Added hunger. The hunger system is roughly based on the hunger system in Minecraft Java Edition Combat Test 6. 
+	- The player has 2 hunger values: hunger and saturation. Hunger, like health, is from 0 to 10 with increments of 0.5. The player's saturation is a nonnegative value and capped at the player's hunger. When the game starts, the player's hunger is set to 10 while the saturation is set to 4. 
+	- Saturation is used up when performing actions such as moving, mining, crafting and attacking. Hunger starts to deplete after saturation is used up. Eating food restores both hunger and saturation, instead of health. Saturation is capped at the hunger of the player. 
+	- Health regenerates every turn after the player's actions (before mob attacks). The amount of health regenerated increases with the saturation. 0.5 to 1 health is generated if the player did not eat that turn, while 0.5 to 2 health is regenerated if the player ate. (This is based on Java Edition 1.9+ hunger system, with saturation bonus)
+	- Added game rule "Natural Regeneration", which is True by default. If it is False, the player will not regenerate health from hunger and saturation naturally. (Now you can play UHC if you really want to. See below for the new health_potion details.)
+	- Regenerating health drains the player's hunger and saturation, with an amount totalling to the amount of health regenerated. The player stops healing only at health = 2. (This is based on the Combat Test 5 hunger system)
+	- Hearts display is on by default, and also shows hunger. Changed heart shape to simply strokes which denote 0.5 health or hunger points respectively. Beside the hunger, saturation is shown with up to 5 strokes. The 1st, 2nd, 3rd, 4th and 5th strokes represent 0.5, 1, 2, 2.5, 2.5 saturation points respectively. 
+	- The amount of hunger each food restores and its (estimated) saturation restored is shown below. 
+		raw_pork: 		 1.5, 1.05
+		cooked_pork:   3, 3.9
+		rotten_flesh:  0.5, 0.15
+		spider_eye: 	 1, 0.3
+		apple: 				 2, 2
+		satay: 				 1.5, 1.5
+		health_potion: 0, 0
+	- Added a cheats command: "set_hunger". Enter "set_hunger" followed by the new_hunger and the player's hunger will be set to that. The new_hunger must be an integer multiple of 0.5. If the new_hunger is lower than the saturation, the saturation will be adjusted to the new_hunger. 
+	- The precise way that saturation is calculated when eating is as follows:
+		- The player cannot eat if the hunger is full, unless they are consuming certain items described as not needing hunger depletion to be consumed. Currently this category only includes health_potion.
+		- Each food has a saturation ratio, the saturation it restores per hunger it restores. The saturation in the above list is calculated by hunger times saturation ratio. 
+		- When eating, the extra hunger is the amount of hunger the food restored minus the amount of hunger actually restored. If the player is at 9 hunger, and eats a cooked_pork restoring 3 hunger, only 1 hunger is restored because the max hunger is 10 so the extra hunger is 2
+		- The amount of hunger used to calculate saturation is the amount of hunger the food restored minus 0.3 times the extra hunger. In the previous example, the amount of hunger used in calculation of saturation = 3 - 0.3*2 = 2
+		- This amount of hunger is multiplied by the saturation ratio of the food to get the amount of saturation the food restored when eating.
+	- The precise way in which the healing amount is calculated is as follows:
+		- If the player's health is at max, not health is healed. If the player's hunger is below 2, no health if healed. 
+		- If the player has just eaten in that turn, bonus is True. If not, bonus is False. Consuming health_potion does not count because it does not require hunger depletion to be consumed. 
+		- If bonus is True, 
+				0 - 6 saturation: heal 0.5
+				6.5 - 10: heal 1.0
+			If bonus is False,
+				0 - 2 saturation: heal 0.5
+				2.5 - 5 saturation: heal 1.0
+				5.5 - 8 saturation: heal 1.5
+				8 - 10 saturation: heal 2.0
+		- The player will lose some saturation and possibly hunger to heal the health. The amount of health healed has to be derived from either saturation or hunger or both. i.e. amount of health lost + amount of saturation lost = amount of health healed. 
+		- If the player has just eaten, all of the amount lost will be from saturation. 
+			- There is a 50% chance that 0.5 of the healing will be lost in hunger and the rest will be lost in saturation. 
+			- This is beneficial for the player, because they will be able to immediately eat another piece of food to regenerate more health. 
+		- If not, then it is split evenly between hunger and saturation, if the amount is a even multiple of 0.5. If not, the hunger will reduce by 0.5 more than the saturation. 
+		- If the player's hunger or saturation is not enough to regenerate according to the above rules, then the amount of health healed will be reduced. 
+- Added effects, aka status effects. The only current effect available is Regeneration. 
+	- Each effect has a type and duration, and may have a level. Players can have status effects. 
+	- If a player has an effect, the remaining duration of it will decrease by 1 for each turn, after all environmental actions (e.g. mob attacking). The status effect is used immediately after decreasing, meaning a status effect of duration n will be used n times. Using a status refers to the game regenerating health for a player with regeneration effect, for example. 
+	- The player can check what status effects they have by entering the "effects" command. Alternatives are "status_effects" and their singulars, "eff" and "status". This command does not take time. 
+	- Health_potion (crafted potion bottle + spider_eye, same as before) does not give any hunger or saturation. It does not need hunger depletion to be consumed, and does not trigger a bonus natural renegeration when consumed. 
+	- Consuming the health_potion gives the player a Regeneration II (level 2) effect for 4 duration. This is the only natural way to get any status effect currently, and Regeneration is the only effect in the game currently. 
+	- The Regeneration effect increases the player's health by 0.5*level each turn. This totals to 0.5*level*duration health, regenerated over duration turns. 
+- Added Dirt, generates in most biomes. Can be mined. 
+- Added sand, generates in River and Ocean biomes. Can be mined. Can be smelted in a furnace to get glass. Glass can be used to craft potion_bottle. glass -> potion bottle. 
+- Changed witch potion bottle drop rate from 1-2 to 0-2. 
+- Reduced all tiers of tools, weapons and armour duribility by 10 points. 
+	Wooden: 40 -> 30
+	Stone: 60 -> 50
+	Iron: 100 -> 90
+	Diamond: 160 -> 150
+	Dragon: 90 -> 80
+- Adjusted the stuff gotten by the cheats command "give gear". Instead of 1000 apple, you now get 100. Instead of 7 health_potions, you now get 100. You now also get 100 cooked_pork. 
+- For the lava lake biome, reduced amount of ores generated from 0-3 coal and 0-2 iron to 0-2 coal and no iron. 
+- Some structures are now classified as not solid, and cannot displace fluids like water and lava. These non-solid structures are both saplings, all 3 flowers, and fluids.
+- The chance for Magma to turn into lava has been changed from base chance * 1.2 ^(firerose-frostflower) to chance * 1.25 ^(firerose-frostflower)
+- Fixed bug where game crashed when you tried to attack the enderdragon
+
+22/8/2020
+
+
+WordCraft 0.1.5 Changelog
+
+- Before the world generates, you will be prompted to enter the world seed. This allows you to create identical worlds. 
+	- If you leave it blank, a random 32-bit integer will be used
+	- If you enter an integer, that will be used as the world seed. This can exceed the 32-bit integer limit. 
+	- If you enter anything else, e.g. a string, it will be converted to a 32-bit integer which will be used as the world seed. The seed will be the same when the same string is used
+	- Each location will have a random seed generated based on the world seed. This location seed determines the location's biome and structures in it. 
+	- Enter the command "seed" to check the world and location seed.
+- Some formatting and text have been changed to make the game look better and different from older versions. 
+- Inventory has been changed. Tools, weapons and armour are now unstackable items, and have durability. The inventory has specialised slots for "tool", "weapon" and "armour" respectively. 
+	- The inventory display has been changed. Added slots for tool, weapon and armour. 
+	- Unstackable items have their own power and durability. Power refers to mining power for pickaxes, attack damage for swords and damage protection for armour.
+	- Added durability. Durability decreases when a tool is used to break something that cannot be mined with a bare hand, attacking with a weapon or taking damage with armour on. When the durability of an item reaches 0, the item breaks and dissapears. The amount of durability of items made with differenttypes of materials are shown below. 
+			Wooden: 40
+			Stone: 60
+			Iron: 100
+			Diamond: 160
+			Dragon: 90
+	- When unstackable items are displayed, the format is NAME / POWER / DURABILITY. Durability is expressed as a percentage. 
+	- When you get or craft an unstackable item, you will be prompted as to whether you want to use it instead of automatically using the best item available. Enter "Y" to use the item. 
+	- To check your weapon, tool and armour respectively, you can still use the "armour", "tool" and "weapon" commands. When you enter these commands, you will also be prompted as to whether you want to change your currect weapon, armour or tool. Enter Y if you want. Then a list of all your available items that can be used for this purpose (excluding the one you are currently using) will be displayed, including Nothing, which meaning not using any item. Then enter the corresponding number for the item you want to use and you will be automatically using that item. To cancel the selection, enter anything that is not a number. 
+- The following items now do not need a crafting_table to craft:
+	- crafting_table
+	- sticks
+	- satay
+	- all types of armour
+	- torch
+	- bucket
+	- health_potion 
+- Added use for furnace, crafted 4 stone + 4 coal -> furnace. If you place down a furnace, you can smelt items. Use the command "smelt" or "cook", followed by the item used for smelting. 
+- Renamed meat to raw_pork. Added cooked_pork. Gotten by smelting / cooking raw_pork. 
+	- Raw_pork heals 2 health
+	- Cooked_pork heals 3 health
+- Changed the amount of health some foods heal
+	- rotten_flesh: 1 -> 0.5
+	- apple: 3 -> 2.5
+	- satay: 3 -> 1.5
+- Changed satay crafting recipe; you now get 2 to make up for reduced healing: raw_pork + stick => 2 satay 
+- Lava lakes and volcanoes can now generate with Stone, Coal and Iron. 
+- You can place down structures when cheats is on without having the item. It will also not remove the item from your inventory
+- "game_rule" command: now shows all the gamerules instead. Can be accessed without cheats on. If cheats are on, you will be given an option to change any game rules. 
+- Changed the name of some game rules. 
+- Added "Lava Damage" game rule, determines whether lava deals damage to players. 
+- Changed Lava damage from 1.5-2 to 2
+- Fixed bug where you could still eat food at full health
+- Fixed bug where hearts did not show half hearts correctly
+- typing the "help" command will display the tutorial in totorial.txt. 
+- Removed "details" command. 
+
+
+Update summary and notes
+- Added world seed. Enter same seed to get the same world each time. Leave blank for random seed. 
+- Made tools, weapons, armour unstackable. They now also have durability. The inventory looks different and there are specific slots for tools, weapons and armour respectively. 
+- When crafting a tool, weapon or armour, you will be prompted as to whether you want to use it. To change what tool, weapon or armour you are using, enter the command "tool", "weapon" or "armour" and you will be prompted to change. 
+- Furnace (crafted 4 stone + 4 coal -> furnace), when placed down allows you to smelt stuff. meat renamed to raw_pork, cooking it with a furnace gives cooked_pork, which restores more hunger.
+- Changed some text and formatting to make the game look better and distinctly different from older versions (i.e. the Minecraft Text Game). Try it and tell me what you think!
+- This update is to add some stuff that I think are good to have before the next major update (0.2.0), which will focus on mobs  combat. I will probably still make a 0and.1.6 before 0.2.0, because I still have a few things I want to add, such as:
+	- Chests
+	- Dropped items
+	- Inventory limit and stack limit
+	- Respawning upon death
+This update was quite annoying to make because I had to fundamentally change the way the inventory and items work. Unfortunately, it seems like I may have to do something similar for structures for 0.1.6. 
+- easter eggs?
+
+11 July 2020
+
+
+
+WordCraft 0.1.4 Changelog
+
+- Added a tutorial in tutorial.txt
+- Added new biome: Tundra.
+- 3 new magical flowers: Firerose, Frostflower, and Biobloom. Firerose: spawns in Volcano. Frostflower: spawns in Tundra. Biobloom: Spawns in Plains and River. Their uses are mentioned below.
+- Added new fluid structure: Magma. Can be collected in a bucket to get magma_bucket. Replaced all current Lava to Magma
+- Magma has a small chance to turn into Lava. This chance is higher when Magma is in caves. Also, if there are Fireroses, the chance increases; if there are Frostflowers, the chance decreades. 
+- Lava damages you 1.5-2 health each unit of time until it is removed. 
+- Fluids now mix according to the following rules:
+	- If Water is placed, it changes all Lava (if any) to Obsidian and does not remove itself. Then, if there is Magma, it turns one Magma into Obsidian and removes itself. 
+	- If Lava or Magma is placed, if there is Water, it changes the Water to Stone and removes itself. 
+- When you place a non-fluid block and there is a fluid around, there will be a message asking if you would like to displace a fluid with your block placed. Enter "Water", "Magma", "Lava" or their first letter, and one of that fluid will be removed when the block is placed. 
+- Regular trees will also spawn in Jungles. Jungle_saplings will now spawn in Jungles. Saplings instead of Trees will now spawn in Plains.
+- Trees will grow from saplings that you placed down. Both regular sapling and jungle_sapling grow their corresponding typ of tree. Jungle_trees grow slower. The time taken is increased if you place Bioblooms around. 
+- Some locations will also generate with a Crafting_table even if they are not the spawn point
+- With the introduction of saplings and fluids, the "place" command also accept the variations of "pour" and "plant".
+
+Changes Summary
+- Renamed Lava to Magma. Added a new fluid Lava. Magma randomly turns into Lava. Lava deals damage to the player. This adds a threat to lava which is currently useless. 
+- New flower: Frostflower; found in new Tundra biomes. Placing this near Magma reduces the chances of it turning into lava. This gives a solution to the Lava problem. Also, when you place blocks, you can place it inside a certain fluid like lava to remove it. 
+- New flower: Firerose; found in the Volcano biome. This is the opposite of the Frostflower, it turns Magma into Lava faster. This adds a new interesting threat to the Volcano biome. 
+- When you place down saplings or jungle saplings, it will grow into trees after some time. 
+- New flower: Biobloo; found in River and Plains biomes. This makes trees grow faster. 
+- The purpose of adding new and unique stuff like flowers is to give reasons for exploration, which is currently quite pointless. Overall, I think they make the game more fun. With this game, I want to not make killing the enderdragon the only goal, like the original Minecraft. 
+
+21/6/2020
+
+
+WordCraft 0.1.3 Changelog
+
+- Player can now place structures into the location or place. Use the command "place (structure)"Things that can be placed inclue the following
+	- stone
+	- obsidian
+	- water (water_bucket)
+	- lava (lava_bucket)
+	- crafting_table
+	- furnace
+	- bed
+	- sapling
+	- jungle_sapling
+- Mining blocks that you placed in the cave does not increase progress. 
+- Crafting anything (other than a crafting_table) will require a Crafting_table placed down at that place. Crafting tables will not get destroyed. 
+- There will always be a crafting_table at your spawning location
+- Sleeping will require a bed to be placed down. You can now sleep in caves if you place a bed there
+- Fixed bug where displaying enderdragon health will crash the game
+- Split the info.txt document into updates.txt and tutorial.txt
+
+
+
+WordCraft 0.1.2 Changelog
+
+- Worlds are now 2D. Move command can accept left/west/w, right/east/e, up/north/n, down/south/s
+- Added coal, generates in caves in similar rarity to iron. When mined, they give 1-2 coal. 
+- Added torches, crafted stick + coal => torch. Currently has no use. 
+- Added furnace, crafted 4 stone + 4 coal => furnace. Currently has no use. 
+- Added water and lava, generates in caves; and river, ocean (water); lava lake, volcano (lava).
+- Water and lava can be collected with "mine"/"collect" command. You need a bucket and will get water_bucket / lava_bucket. (collecting lava does not contribute to increasing cave progress)
+- When Lava generates and there is also Water, they become Stone. When Water generates and there is also Lava, they become Obsidian. 
+- Obsidian can only be mined with a diamond_pickaxe, and drops obsidian. 
+- Added nether_portal, crafted 5 obsidian => nether_portal. Currently has no use. 
+- Added shield, crafted 4 wood +  iron => shield. Currently has no use. 
+- Changed stick crafting recipe: 2 wood => 2 stick
+- Reduced chance of regular Tree dropping stick
+- Tweaked ore generation rates
+
+14/6/2020
+
+
+WordCraft 0.1.1 Changelog 
+
+- Ore generation rates have been reduced
+- Diamond generation rates are significantly reduced on the first day
+- Fixed bug where ores can be mined with any pickaxe 
+- The better the pickaxe, the more the progress of a cave will increase upon mining (wood = 1, stone = 1.15, iron = 1.25, diamond = 1.4). This is to make up for the reduced ore generation and differentiate different teirs of pickaxes
+- Jungles now have Jungle_tree instead of regular Tree, Jungle_tree drops more wood but no apples
+- Added sapling and jungle_sapling, gotten by chopping the corresponding type of tree. Currently not useful
+- Added bucket, crafted 2 iron => bucket, currently has no use. 
+- Changed cave generation rates in biomes. Spawning location also has extra chance to have cave.
+- "gamerule" / "game_rule" / "gr" cheats command, followed by name of a game rule followed by a boolean value. Changes the game rule of the world to the given value. Current game rules: daylight_cycle, structure_drops, mob_spawning, mob_attacking. 
+- Fixed bug where "give" command would display getting item message twice
+- Fixed bug where "give" command can give you any string as an item
+
+10/6/2020
+
+
+WordCraft 0.1.0 Changelog 
+
+- worlds now have different locations. World size limit is currently 256
+- command "move left/right" to visit different locations
+- locations are of randomly selected biomes, forest, plains, jungle, ocean, river, lava lake and volcano
+- caves now exist within locations, so different locations have different caves. Different biomes have a different chance of generating cave
+- caves now have a limited number of stone
+- the chance of ore generation is a logarithmic function of progress, which is the total number of blocks you have mined in that cave. The chance is doubled if it is immediately after mining a block. In general, the ore generation rates have been reduced
+- "chance" command to toggle whethter to show the probablity of generating ores in a cave
+- trees also now exist within a location, with number of trees based on the biome
+- inventory now displays items in the order they were collected
+- player health can now be something point 5, although currently only achievable using the "set_health" command
+- changed intro text
+
+Current bugs
+- using the give command, you can enter any string and you will get that thing
+- only the "go forest" or "back" command is understood to exit a cave, even if the biome is not a forest
+- stone and ores can be mined with any pickaxe and even without
+- lack of help page
+- mobs do not have a location yet
+- trees currently do not have a way to regrow after being chopped down
+- treasure chests do not currently generate naturally
+
+Please report any bugs you find
+
+Future planned features
+- water, lava and obsidian
+- being able to place down crafting_table and bed, and hence changes to their functionalities
+- treasure chest generation
+- being able to enter a seed to generate the world
+- mobs having a position, meaning they are in a certain location, able to chase players, despawn etc. 
+- hunger 
+- significant changes to combat 
+
+7/6/2020
+
+

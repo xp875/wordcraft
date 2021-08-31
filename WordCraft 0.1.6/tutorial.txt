@@ -1,0 +1,507 @@
+Tutorial 
+
+
+This is a text-based game based on the sandbox game Minecraft. In this game, you are in a virtual world and have to try and survive and collect resources. You can control your character by entering commands when given the "==>" prompt. 
+
+You begin in a location in a randomly generated 2-dimensional world. Each location has a biome: forest, plains, river, lava lake etc. Biomes affect the structures you find in that location: Trees, Water etc. To move in the world, you can enter the command "move" followed by "north", "south", "east" or "west". Use the command "view" to find out about the location you are at. 
+
+You can mine structures to collect useful items using the command "mine" followed by the structure. Find a location with Trees, and enter "mine Tree" or "chop Tree" to collect wood. Note that commands accept certain variations. For example, "mine" can also be written as "break", "chop", "collect", "dig", or even just "m". 
+
+You can make useful items from the resources you have by using the command "craft" followed by the item you want to craft. Remember to enter the item's name in full and separate words with an underscore. (E.g. "wooden_pickaxe" instead of "wooden pickaxe" or just "pickaxe"). You can try crafting some of the following items using the wood you collected:
+
+2 wood => 2 stick
+stick + 2 wood => wooden_pickaxe
+stick + wood => wooden_sword
+3 wood => bed
+4 wood => crafting_table
+
+To check the items you have, enter the command "inventory" or "e". 
+
+There are also some things that you can place down at your location, such as Crafting_table, Bed and Sapling. Use the command "place" followed by what you want to place. Objects found naturally in locations or placed by the player are called structures. Try placing down a Crafting_table when you go to a new location to allow you to craft items there. 
+
+Pickaxes help you mine rocky materials, and swords allow you to deal more damage when attacking. To make better tools, try finding a cave and mine Stone. Find a location with a cave, and enter the command "enter cave". Ores such as Coal, Iron and Diamond also randomly generate in caves, giving you resources to craft better tools and even armour. To mine, enter the command 
+
+There is an in-game time, which increments for every successful active move you make. For times 0 to 19, it is daytime. For times 20 to 35, it is nighttime and the cycle repeats afterwards.  You may skip the night by placing down a Bed and sleeping by entering the command "sleep". 
+
+There are creatures called mobs that spawn randomly, such as animals like pigs and even monsters like zombies. When mobs spawn, you will see a message like "You see a (mob type), (mob name)". E.g. "You see a pig, pig0". Mob names are assigned as follows: pig0, pig1, pig2, pig3 etc. You can attack mobs by using the command "attack" followed by the mob name. Mobs may drop useful items upon death. 
+
+At night, hostile mobs (monsters) such as zombies and endermen spawn and will attack you. Spiders can spawn in caves, even in daytime. You have 10 health. However, if the you are killed, the game ends. Try crafting swords and armour to help you fighting these mobs. To heal your health, you can eat food items such as meat, which is dropped by pigs. Use the command "eat" followed by the food item. 
+
+To beat the game, craft an end_portal and go to the end. Then, attack the enderdragon until it dies. When the enderdragon flies away to heal its health, you should also eat to heal yours. Consider crafting health_potions which restore a lot of health when consumed. 
+
+4 stone + 2 iron + diamond => portal_frame
+3 eye_of_ender + 3 portal_frame => end_portal
+Eye_of_ender is dropped by endermen upon death. Endermen are dangerous hostile mobs that spawn at night of the second day and later. 
+
+potion_bottle + spider_eye => health_potion
+Potion_bottle is dropped by witches upon death. Witches are powerful hostile mobs that spawn at night of the second day and later. Not only can they deal damage, they can also heal themselves. 
+Spider_eye is dropped by spiders and witches. Spiders are hostile mobs that spawn in caves, even in the day. However, they deal much more damage at night. 
+
+
+How to download WordCraft from REPL
+
+1) To run WordCraft from your computer, you need to first download Python. python.org/downloads/
+2) From the WordCraft REPL, click the 3 dots on the same line as "Files" on the left of your screen. Click "Download as zip". 
+3) From your file explorer, select the zip file and right click, and choose "Extract all". 
+4) From the extracted files, to run WordCraft, double click on the main.py file or open it with IDLE and run it from there by pressing F5. 
+
+
+*From previous version: Minecraft Text Game
+
+0 : General
+1 : Commands
+2 : Items 
+3 : Crafting
+4 : Mobs 
+5 : End
+
+-------------------------------------------------
+0 : General
+
+This is a text RPG with flexible gameplay. This game is based on Minecraft, a popular sandbox video game by Mojang. 
+
+In this game, you can collect resources from the world by using the "mine" command. You can use these resources to make further equipment such as tools, weapons and armour by using the "craft" command. 
+
+There is an in-game time, which increments for every successful active move you make. For times 0 to 19, it is daytime. For times 20 to 35, it is nighttime and the cycle repeats afterwards. In the daytime, trees grow, animals like pigs spawn and the player can collect resources. At night, hostile mobs (monsters) such as zombies and endermen start to spawn and will attack the player. The player has 10 health. The player can battle these mobs and they may even drop valuable resources upon death. However, if the player is killed, the game ends. The player can choose to skip the night by sleeping in a bed. 
+
+The goal of the game is to journey to the end and kill the enderdragon, an evil boss mob. 
+
+In the following rough guide, commands that can be typed to perform the actions are shown in [""].
+
+The player begins in the forest location, where trees will grow and mobs (creatures) can spawn. The player can begin by collecting wood ["chop tree" or "mine tree"]. The wood can be used to craft a wooden_pickaxe ["craft wooden_pickaxe"] which allows the player to mine stone. 
+
+The player can enter the cave ["enter cave"] and mine stone ["mine stone"]. The cave can randomly generate other valuable resources such as iron and diamond. diamond can only generate from the second day and after. spider is a hostile mob that can spawn in the cave, even in the daytime. However, they deal much less damage in the daytime than nighttime. 
+
+The player can exit the cave ["exit"] and use the stone collected to craft other tools such as stone_pickaxe ["craft stone_pickaxe"] and stone_sword ["craft stone_sword"]. A stone_pickaxe is required to mine iron ["mine iron"], and an iron_pickaxe is required to mine diamond ["mine diamond"]. 
+
+pig is a friendly mob (creature) that spawns in the forest randomly. When mobs spawn, you will see a message like "You see a (mob type), (mob name)". e.g. "You see a pig, pig0". Mob names are assigned as follows: pig0, pig1, pig2, pig3 etc. The player can attack mobs ["attack (mob name)" or "kill (mob name)"]. The damage that is dealt is determined by the current sword that the player has. Remember that hostile mobs such as spider and zombie can attack the player too! For more info about the mobs, see "Mobs". For more info on swords and armour, see "Items". For more info on how to make these items and others, see "Crafting"
+
+The pig drops raw_pork upon death, which can be eaten ["eat raw_pork"] to heal health. You can also make a furnace and cook the pork to restore more health. Sometimes trees also give you apple which can also be eaten to heal health ["eat apple"]. 
+
+Chests can generate rarely in the forest or cave. You can open them ["open chest"] and you may get valuable loot!
+
+When the in-game time reaches 20, it becomes nighttime and hosile mobs will begin to spawn. The hostile mobs are zombie, witch and enderman. witch and enderman are much stronger and will only spawn from the second night onwards. For more information about these mobs, see "Mobs". To avoid facing these mobs, the player can make a bed ["craft bed"] and sleep ["sleep"]. 
+
+The enderman, a mob that spawns from the second night and after, drops eye_of_ender upon death, which can be used to craft end_portal ["craft end_portal"] to allow the player to journey to the end ["enter end"] to battle the enderdragon. For more info about the end, see "End". The witch drops many useful items such as potion_bottle which can be used to make health_potion ["craft health_potion"]. For more info on how to make these items, see "Crafting". For more info on what these items do, see "Items"
+
+
+
+-------------------------------------------------
+1 : Commands
+
+Commands are what you type to perform actions in the game. You can type commands after the "==>" prompt. 
+
+Commands are not case-sensitive. Those that require an object, location etc. following the keyword are required to be seperated by a space. Items that contain multiple words are to be separated by an underscore (_) e.g. "wooden_pickaxe". 
+
+The following is the list of all commands. 
+
+quit
+hearts
+details 
+help
+time
+moves
+location
+health
+pickaxe
+sword
+armour
+view
+inventory
+mine (object)
+go (location)
+back 
+craft (item)
+wait
+sleep
+attack (mob name)
+eat (food item)
+
+quit / done
+Exits the game. A confirm message will be displayed. 
+
+hearts 
+Toggles whether to show the player's health using hearts every move. This is off by default. Here is an example hearts of a player with 7 health:
+(\/)(\/)(\/)(\/)(\/)(\/)(\/)::::::::::::
+ \/  \/  \/  \/  \/  \/  \/  ::  ::  :: 
+ 
+details 
+Shows details (time, moves, location, health, pickaxe, sword, armour)
+
+help
+Displays help information 
+
+time / t
+Displays the in-game time. Format: Time: [numerical value] ([day or night]); Day [day number]
+Remember that time 0-19 is daytime and 20-35 is nighttime. The cycle repeats afterwards. Note that there is no time in the end. 
+
+moves
+Displays the number of moves the player has made
+
+location / where
+Displays where the player is (forest, cave or end)
+
+health / h
+Displays the amount of health the player has. Maximum health: 10
+
+pickaxe / pick / pic / tool / tools
+Displays the best pickaxe that the player has, and is the one that will be used to mine objects
+
+sword / weapon 
+Displays the best sword that the player has, and is the one that will be used to attack mobs (creatures)
+
+armour / armor / protection
+Displays the best armour that the player has, and is the one that will be used to block damage from attacks
+
+view / look / v
+Displays the objects and mobs in the surroundings of the location that the player is in
+
+inventory / i / e
+Displays the player's inventory, i.e. the objects that the player has
+
+*mine / break / destroy / harvest / gather / dig / m / collect / take / get / chop / cut (object)
+Destroys an object in the game world and collects items yielded 
+e.g. mine stone, chop tree
+
+*go / enter / goto / go_to / into (location)
+Changes player's location if the location is accessible
+e.g. (from forest) enter cave, (from forest, with an end_portal) enter end
+
+*out / return / back / escape
+Changes player's location back to the forest if possible
+e.g. (from cave) exit (equivalent to "enter forest")
+
+*craft / make / create / c / brew (item) 
+Creates item by combining resources if possible (this consumes the ingredients). For more information on what is required to craft certain items, see "Crafting". A crafting_table is required for crafting in locations other than the forest. 
+
+*wait / w
+Does nothing and allows time to pass. This also allows ores to generate, trees to grow, mobs to spawn and attack etc. 
+
+*sleep
+Allows the player to skip the night and changes the time directly to the next day. This requires a bed. You can only sleep at night and in the forest and when there are no hostile mobs around. 
+
+*attack / kill / fight / k (mob name)
+Attacks the mob with the player's sword. Remember to type the mob name in full (e.g. zombie0, pig1)
+
+*eat / drink / consume (food)
+Consumes the food and heals health. 
+
+cheats (on/off, true/false)
+Sets whether cheats are turned on for the game. Cheats enable you to perform cheating commands, and can be used for testing purposes. Cheats are off by default. If you enable cheats any time during the game, it will be reflected when the game is over. 
+
+give (item) [amount]
+Requires cheats to be turned on. Gives the player the item and that amount (1 if unspecified). You can enter "give gear" to obtain all diamond tools and armour, food, health_potion, and end_portal. 
+
+spawn / summon (mob type)
+Requires cheats to be turned on. Spawns the given mob. Due to limitations, this command only works in the location where the mob originally spawns. 
+
+heal / set_health (integer health amount)
+Requires cheats to be turned on. Changes your health to the given health amount, capped at 10. This will kill you if you input 0 or a negative integer. 
+
+luck / set_luck (floating number or integer luck value)
+Requires cheats to be turned on. Changes the in-game "luck" value to the given value. By default, it is 1.0. The luck value infuences the probablilty of certain random beneficial events in the game such as generating chests. The higher the luck, the more likely. 
+
+
+*Asterisks mark active moves that will allow 1 unit of time to pass.
+
+
+
+-------------------------------------------------
+2 : Items
+
+Items are objects that the player can collect and keep in their inventory. Enter "inventory" or "i" or "e" to check your inventory. 
+
+Items have many uses. Some items can be obtained from crafting and other can be used to craft other items. Some items can be eaten to heal health. 
+
+Pickaxes are required to mine certain objects. Swords are what determine the damage dealt to mobs when you attack them. Armour will block damage from mob attacks. 
+
+The player begins with no pickaxe, no sword (which deals 1 damage) and no armour. When pickaxes, swords and armour are crafted, the game will automatically update the current pickaxe, armour or sword that the player is using or eqquipped with, if the new one is better than the current one. Hence, the game will automatically ensure that the player is always using the best pickaxe, armour or weapon all the time. You can check your current pickaxe, sword or armour by typing "pickaxe", "sword" or "armour".
+
+Remember to spell items correctly and with an underscore if it has multiple words (e.g. wooden_pickaxe) when typing commands. 
+
+The following is a list of items, in the order that they appear in the inventory. 
+
+wood
+stone
+iron
+diamond
+stick
+bed
+crafting_table
+wooden_pickaxe
+stone_pickaxe
+iron_pickaxe
+diamond_pickaxe
+wooden_sword
+stone_sword
+iron_sword
+diamond_sword
+iron_armour
+diamond_armour
+dragon_armour
+apple
+meat
+rotten_flesh
+spider_eye
+satay
+potion_bottle
+health_potion
+eye_of_ender
+portal_frame
+end_portal
+dragon_egg
+dragon_skin
+
+wood
+Obtained from harvesting trees. Can be used to craft sticks and wooden tools. 
+
+stone
+Obtained from mining stone in the cave. Can be used to craft stone tools and portal_frame. 
+
+iron 
+Obtained from mining iron in the cave. Iron generates randomly in the cave. When iron generates, you will be notified with a message "You found iron". Can be used to craft iron_armour, iron_pickaxe, iron_sword, and portal_frame
+
+diamond
+Obtained from mining diamond in the cave. Diamond generates randomly in the cave from the second day onwards. When diamond generates, you will be notified with a message "You found diamond". Can be used to craft diamond_armour, diamond_pickaxe, diamond_sword, and portal_frame
+
+stick
+Crafting: wood => stick
+Can also be obtained by harvesting a tree. Used to craft pickaxes and swords. 
+
+bed
+Crafting: 3 wood => bed
+This is needed to sleep at night to skip to the nest day. Remember that you can only sleep at night and in the forest and when you have full health. 
+
+crafting_table
+Crafting: 4 wood => crafting_table
+This is needed to craft items when not in the forest. For each use of the crafting_table, there is a small chance that it will break and be consumed.
+
+wooden_pickaxe
+Crafting: stick + 2 wood => wooden_pickaxe
+Can be used to mine stone
+
+stone_pickaxe
+Crafting: stick + 2 stone => stone_pickaxe
+Can be used to mine stone and iron
+
+iron_pickaxe
+Crafting: stick + 2 iron => iron_pickaxe
+Can be used to mine stone, iron and diamond
+
+diamond_pickaxe
+Crafting: stick + 2 diamond => diamond_pickaxe
+Can be used to mine stone, iron and diamond
+
+wooden_sword
+Crafting: stick + wood => wooden_sword
+Deals 3 damage
+
+stone_sword
+Crafting: stick + stone => stone_sword
+Deals 5 damage
+
+iron_sword
+Crafting: stick + iron => iron_sword
+Deals 7 damage
+
+diamond_sword
+Crafting: stick + diamond => diamond_sword
+Deals 10 damage
+
+iron_armour
+Crafting: 3 iron => iron_armour
+Blocks 2 damage from each mob attack
+
+diamond_armour
+Crafting: 3 diamond => diamond armour
+Blocks 3 damage from each mob attack
+
+dragon_armour
+Crafting: dragon_skin => dragon_armour
+Obtained by crafting using dragon_skin, dropped by the enderdragon upon death. Blocks 4 damage from each attack
+
+apple
+Drops ocasionally when harvesting a tree and drops sometimes by witch upon their death. Can be eaten to heal 3 health
+
+meat
+Dropped by pigs when they die. Can be eaten to heal 2 health. Can also be crafted into satay 
+
+rotten_flesh
+Dropped by zombies when they die. Can be eaten to heal 1 health
+
+spider_eye
+Dropped by spiders when they die, and occasionally, witches. If you eat it, you will be poisoned of 2 health. Can be used to craft health_potion. 
+
+satay
+Crafting: meat + stick => satay
+Can be eaten to heal 3 health
+
+potion_bottle
+Dropped by witches when they die. Can be used to craft health_potion. 
+
+health_potion
+Crafting: potion_bottle + spider_eye => health_potion
+Can be consumed to heal 8 health.
+
+eye_of_ender
+Dropped by endermen when they die. Can be used to craft end_portal to journey to the end.
+
+portal_frame
+Crafting: 4 stone + 2 iron + diamond => portal frame
+Used to craft end_portal to journey to the end.
+
+end_portal
+Crafting: 3 eye_of_ender + 3 portal_frame => end portal
+Needed to journey to the end to fight the enderdragon boss mob.
+
+dragon_egg
+Collected by successfully defeating the enderdragon
+
+dragon_skin
+Collected by successfully defeating the enderdragon. Can be used to craft dragon_armour, the most powerful armour
+
+
+
+-------------------------------------------------
+3 : Crafting
+
+Crafting is done by using the "craft" command. You must also specify the item that you are crafting. 
+
+You need to have a crafting_table to craft items when not in the forest, e.g. in the cave. When doing so, there is a small chance that the crafting_table will break and be consumed. 
+
+The following is a list of all the items that can be crafted and what is needed to do so. For more info on these items, see "Items".
+
+
+wood => stick
+stick + 2 wood => wooden_pickaxe
+stick + 2 stone => stone_pickaxe
+stick + 2 iron => iron_pickaxe
+stick + 2 diamond => diamond_pickaxe
+3 wood => bed
+4 wood => crafting_table
+stick + wood => wooden_sword
+stick + stone => stone_sword
+stick + iron => iron_sword
+stick + diamond => diamond_sword
+3 iron => iron_armour
+3 diamond => diamond_armour
+potion_bottle + spider_eye => health_potion
+4 stone + 2 iron + diamond => portal_frame
+3 eye_of_ender + 3 portal_frame => end_portal
+meat + stick => satay
+dragon_skin => dragon_armour
+
+
+
+-------------------------------------------------
+4 : Mobs
+
+Mobs are creatures that spawn (appear) randomly in their spawning location if the player is in that location too. When a mob spawns, you will see the message "You see a (mob type), (mob name)" e.g. "You see a pig, pig0". Mob names are assigned as follows: pig0, pig1, pig2, pig3 etc. 
+
+Mobs have health. The player can attack mobs by using the "attack" command, followed by the mob name. The damage that is dealt is determined by the current sword that the player has. When mobs die, they have a chance to drop certain items, some can be highly valuable. 
+
+Hostile mobs will also begin to attack the player one unit of time after spawning, continuing to do so every unit of time afterwards until they are killed or the player is, or the player moves to another location. The damage dealt will be reduced if the player is equipped with armour.  
+
+Mobs begin to attack the player 1 unit of time after spawning, so it is not immediate. Since attacking mobs is processed before mob attacking players, if you kill a mob in one hit, it will not have the chance to attack you. 
+
+Mobs cannot change their location, i.e. they cannot follow the player into the cave or into the end. 
+
+Only one mob of the same type spawns at once, but different mobs can spawn at the same time. Multiple mobs can appear and attack simultaneously. There is a mob cap that prevents too many mobs to appear at once, however the hostile mob cap is increased as time goes by. If you wish to avoid facing mobs at night, you can choose to sleep to skip the night.
+
+Mobs can also spawn by using the "spawn" or "summon" command, which needs cheats to be turned on. 
+
+The following is a list of all the mob types. 
+
+
+pig
+Friendly
+Spawning: forest, anytime,lower chance at night
+Drops: 1-3 meat 
+Health: 4
+
+zombie 
+Hostile
+Spawning: forest, at night
+Burns in sunlight in the day
+Drops: 0-2 rotten_flesh, 0-1 iron (very rare)
+Health: 10
+Attack damage: 2
+Has a small chance of attacking through armour
+
+spider
+Hostile
+Spawning: cave, anytime, much higher chance at night and on second day onwards
+Drops: 0-2 spider_eye 
+Health: 8
+Attack damage: 1-2 (daytime), 2-5 (nighttime)
+
+enderman
+Hostile
+Spawning: forest, at night, day 2 and after only, in the end, when the enderdragon summons them mid-battle (see "End")
+Drops: 0-2 eye_of_ender, 0-1 diamond (very rare)
+Health: 20
+Attack damage: 4-5
+Has a small chance to not attack 
+
+witch
+Hostile
+Spawning: forest, at night, day 2 and after only
+Drops: 1-2 potion_bottle, 0-1 spider_eye, 0-1 apple, 0-1 health_potion (rare)
+Health: 15
+Attack damage: 4
+Can heal itself instead of attacking
+
+
+
+-------------------------------------------------
+5 : End
+
+To win the game, the player has to journey to the end to kill the enderdragon. To do so, the player must make an end_portal. See the following crafting recipes:
+
+4 stone + 2 iron + diamond => portal_frame
+
+3 eye_of_ender + 3 portal_frame => end_portal
+
+eye_of_ender is dropped by endermen upon death. 
+
+You cannot return to the forest once you are in the end, until you defeat the enderdragon. If you do so, you can return to the forest. After that, if you enter the end again, another enderdragon will spawnand you also cannot leave until you defeat it. Each enderdragon you kill will drop a dragon_skin, but only the first one will drop the dragon_egg
+
+
+enderdragon
+
+Health: 200
+Example health bar:
+                    ENDERDRAGON
++--------------------------------------------------+
+|////////////////////////////////////////          |
++--------------------------------------------------+
+
+Name: enderdragon or ed
+
+Spawing: end, once when the player enters
+
+Drops: dragon_egg (first enderdragon only), dragon_skin
+
+Behaviour:
+
+When the dragon is above half health, it is in stage 1. When the dragon is below half health, it is in stage 2. When the enderdragon reaches half health, it will fly off and summon 3 endermen, and only come back when they are killed. 
+
+For stage 1, the enderdragon attacks once every unit of time for 3 consecutive units of time, then flies off for 1 unit of time. For stage 2, the enderdragon attacks once every unit of time for 4 to 5 consecutive units of time and flies off for 2 units of time. 
+
+The enderdragon cannot attack or be damaged when it is flown off. For each unit of time that enderdragon is flying off, it will regenerate 1-3 health (stage 1) or 3-5 health (stage 2). 
+
+When attacking, out of each group of 3-4 attacks, exactly one will be an acid attack (acid breath) and the rest will be melee attacks (bumping into you).
+
+Acid attack damage: 5 - 7 
+Melee attack damage: 4 (stage 1), 4 - 5 (stage 2)
+
+
+When the enderdragon is killed, you will gain the dragon_egg, and will be prompted to return to the forest, which completes the game. You can carry on playing though. 
+
+Just for fun, we grade your performance based on your number of moves taken to complete the game. (Only if you did not turn on cheats)
+
+<= 200: legenday! 
+201 - 300: epic!
+301 - 350: superb!
+401 - 500: awesome!
+> 500: great!
