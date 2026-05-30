@@ -150,8 +150,9 @@ class Player:
 		return
 		# (\/)(\/)::::
 		#	 \/	 \/	 ::
-		a = int(self.health) * "(\/)"
-		b = int(self.health) * " \/ "
+		'''
+		a = int(self.health) * "(\\/)"
+		b = int(self.health) * " \\/ "
 		if self.health != int(self.health):
 				a += "(\\::"
 				b += " \\: "
@@ -160,6 +161,8 @@ class Player:
 		b += int(10 - self.health) * " :: "
 
 		print(a + "\n" + b)
+		'''
+		
 
 	def enter_place(self, place):
 		for i in self.location.places:

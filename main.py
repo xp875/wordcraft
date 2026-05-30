@@ -1,4 +1,5 @@
-#WordCraft 0.1.6
+#WordCraft 0.1.7
+VERSION = "0.1.7"
 
 import rng
 from entities.player_info import players
@@ -1035,7 +1036,7 @@ def goto(m):
 			return -1
 		#go to cave
 		elif m == "cave":	
-			if player.location.have_place("Cave") == None:
+			if not player.location.have_place("Cave"):
 				print("There is no cave here\n") 
 				return -1
 
@@ -1635,17 +1636,18 @@ def main():
 	intro()
 
 	seed = input("Enter world seed: ")
-
+	
+	if seed == "":
+		seed = None
+		
 	try:
 		seed = int(seed)
 	except:
 		pass
-	if seed == "":
-		seed = None
-	if type(seed) == type("") or seed==None:
-		rng.set_seed(seed)
-		seed = rng.rand_int(-worlds.World.number_limit/2, worlds.World.number_limit/2-1)
-	
+
+	rng.set_seed(seed)
+	seed = rng.rand_int(-worlds.World.number_limit//2, worlds.World.number_limit//2-1)
+
 
 	print("Generating world...\n")
 	world = worlds.World(seed)
@@ -1657,6 +1659,7 @@ def main():
 
 	#keep inputting a move
 	while True:
+	
 		make_move()
 		if done:
 			break
