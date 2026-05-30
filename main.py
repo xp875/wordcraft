@@ -43,7 +43,7 @@ def intro():
 	if rng.chance(2.5):
 		name = "WORCDRAFT"
 	print("-"*49 + "\n"+ " "*20 + name + "\n"+ "-"*49)
-	print("""Version: 0.1.6
+	print("""Version: 0.1.7
 	
 Please read updates.txt to find out what has changed. Please report any bugs you find. 
 Please read tutorial.txt to learn how to play. 
