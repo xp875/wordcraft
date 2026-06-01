@@ -45,8 +45,8 @@ def intro():
 	print("-"*49 + "\n"+ " "*20 + name + "\n"+ "-"*49)
 	print("""Version: 0.1.7
 	
-Please read updates.txt to find out what has changed. Please report any bugs you find. 
-Please read tutorial.txt to learn how to play. 
+Read tutorial.md to learn how to play! 
+Read updates.md to learn about new features. 
 
 	""")
 
@@ -123,12 +123,12 @@ def print_effects():
 
 def help():
 	print("")
-	with open("tutorial.txt", "r") as tutorial:
+	with open("tutorial.md", "r") as tutorial:
 		for ln in tutorial:
-			if ln == "*From previous version: Minecraft Text Game\n":
+			if ln[:2] == "##":
 				break
 			
-			print(ln, end="")
+			print(ln.replace("```","").replace("`","\""), end="")
 
 
 
